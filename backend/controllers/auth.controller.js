@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs"
 
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js"
+import { getRandomBoyImg, getRandomGirlImg } from "../utils/profileImg.js";
 
 export const signUp = async (req, res) => {
 
@@ -20,8 +21,11 @@ export const signUp = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const profilePicForMale = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
-        const profilePicForFemale = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+        // const profilePicForMale = `https://avatar.iran.liara.run/public/boy?username=${userName}`;
+        // const profilePicForFemale = `https://avatar.iran.liara.run/public/girl?username=${userName}`;
+
+        const profilePicForMale = `https://i.pravatar.cc/150?img=${getRandomBoyImg()}&u=${userName}`;
+        const profilePicForFemale = `https://i.pravatar.cc/150?img=${getRandomGirlImg()}&u=${userName}`;
 
         const newUser = new User({
             fullName,
