@@ -16,7 +16,7 @@ export const getFilteredUsers = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
         const { searchQuery: query } = req.params;
-        const usersArr = (await User.find({ _id: { $ne: loggedInUserId } }).select("-password"));
+        const usersArr = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
         const filteredUsers = []
         usersArr.map((user) => {
             if (user.fullName.toLowerCase().includes(query.toLowerCase())) filteredUsers.push(user);
